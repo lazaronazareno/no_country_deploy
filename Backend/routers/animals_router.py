@@ -52,6 +52,16 @@ async def register_pets(
         IMEGEN_DIR2 = os.getenv('IMEGEN_DIR2')
         print(IMEGEN_DIR)
         print(IMEGEN_DIR2)
+
+        if not os.path.exists(IMEGEN_DIR):
+            os.makedirs(IMEGEN_DIR)
+        if not os.path.exists(IMEGEN_DIR2):
+            os.makedirs(IMEGEN_DIR2)
+    
+        if not os.access(IMEGEN_DIR, os.W_OK):
+            raise HTTPException(status_code=500, detail=f"No se tiene permiso de escritura en {IMEGEN_DIR}")
+        if not os.access(IMEGEN_DIR2, os.W_OK):
+            raise HTTPException(status_code=500, detail=f"No se tiene permiso de escritura en {IMEGEN_DIR2}")
         
         get_img_profile = imagen_profile.filename 
     
