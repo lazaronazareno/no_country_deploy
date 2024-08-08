@@ -12,6 +12,7 @@ load_dotenv()
 main_app = FastAPI()
 
 CORS_ORIGIN = os.getenv('CORS_ORIGIN')
+IMAGE_DIRECTORY = os.getenv('IMAGE_DIRECTORY')
 
 origins = [
     CORS_ORIGIN,
@@ -25,7 +26,7 @@ main_app.add_middleware(
     allow_headers=["*"],
 )
 
-main_app.mount("/static", StaticFiles(directory="/app/frontend/public"), name="static")
+main_app.mount("/static", StaticFiles(directory=f"{IMAGE_DIRECTORY}"), name="static")
 
 main_app.include_router(user_root)
 main_app.include_router(animal_root)
